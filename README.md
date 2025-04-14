@@ -109,7 +109,7 @@ Crea las carpetas y archivos necesarios para la aplicación y configuración de 
 mkdir -p public tests .github/workflows k8s
 touch Dockerfile docker-compose.yml .dockerignore .gitignore
 La estructura del proyecto será la siguiente:
-
+<pre>
 php-k8s-ci-cd-app/
 ├── .github/workflows/deploy.yml
 ├── k8s/
@@ -127,9 +127,10 @@ php-k8s-ci-cd-app/
 ├── .dockerignore
 ├── .gitignore
 └── README.md
+</pre>
 4. Código de la Aplicación PHP
 En el archivo public/index.php, agrega el siguiente código para conectarte a la base de datos y listar los registros de una tabla:
-
+<pre>
 <?php
 $mysqli = new mysqli(
     getenv('DB_HOST'),
@@ -149,6 +150,7 @@ while ($row = $result->fetch_assoc()) {
 }
 $mysqli->close();
 ?>
+</pre>
 5. Crear el Dockerfile
 En el archivo Dockerfile, agrega el siguiente contenido para crear la imagen de Docker:
 
@@ -172,7 +174,7 @@ Crea un nuevo repositorio en Docker Hub para almacenar la imagen de Docker.
 
 8. Configurar GitHub Actions para CI/CD
 Crea el archivo de flujo de trabajo en .github/workflows/deploy.yml con el siguiente contenido:
-
+<pre>
 name: Build and Deploy to Docker Hub
 on:
   push:
@@ -197,6 +199,7 @@ jobs:
         context: .
         push: true
         tags: tu-usuario/php-k8s-app:latest
+</pre>
 9. Crear el Deployment de Kubernetes
 Crea los archivos de configuración de Kubernetes en la carpeta k8s/:
 
@@ -217,8 +220,9 @@ kubectl apply -f k8s/deployment.yaml
 Modificar tu archivo hosts local para acceder a la aplicación mediante http://php.local.
 
 Levantar el Ingress en Minikube (si no lo tienes activado).
-
+<pre>
 minikube addons enable ingress
+</pre>
 Verificar los pods y servicios:
 
 kubectl get all
@@ -247,10 +251,11 @@ Usa Serveo para exponer tu WSL y acceder remotamente desde cualquier lugar:
 
 ssh -R 2222:localhost:22 serveo.net5. Crear el Dockerfile
 En el archivo Dockerfile, agrega el siguiente contenido para crear la imagen de Docker:
-
+<pre>
 FROM php:8.2-apache
 COPY public/ /var/www/html/
 EXPOSE 80
+</pre>
 6. Construir y Probar la Imagen Localmente (Opcional)
 Construir la imagen Docker:
 
