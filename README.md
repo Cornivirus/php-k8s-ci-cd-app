@@ -26,15 +26,18 @@ Marca la opción "Initialize with a README".
 Crea el repositorio.
 
 2. Clonar el Repositorio
+<pre>
 git clone https://github.com/tu_usuario/php-k8s-ci-cd-app.git
 cd php-k8s-ci-cd-app
+</pre>
 3. Estructura Básica del Proyecto
 Crea las carpetas y archivos necesarios para la aplicación y configuración de CI/CD:
-
+<pre>
 mkdir -p public tests .github/workflows k8s
 touch Dockerfile docker-compose.yml .dockerignore .gitignore
+</pre>
 La estructura del proyecto será la siguiente:
-
+<pre>
 php-k8s-ci-cd-app/
 ├── .github/workflows/deploy.yml
 ├── k8s/
@@ -52,9 +55,10 @@ php-k8s-ci-cd-app/
 ├── .dockerignore
 ├── .gitignore
 └── README.md
+</pre>
 4. Código de la Aplicación PHP
 En el archivo public/index.php, agrega el siguiente código para conectarte a la base de datos y listar los registros de una tabla:
-
+<pre>
 <?php
 $mysqli = new mysqli(
     getenv('DB_HOST'),
@@ -74,6 +78,7 @@ while ($row = $result->fetch_assoc()) {
 }
 $mysqli->close();
 ?>
+</pre>
 Automatización de Despliegues con GitHub Actions, Docker Compose y Kubernetes
 Descripción del Proyecto
 Este proyecto tiene como objetivo configurar un flujo de CI/CD para un proyecto PHP utilizando GitHub Actions, Docker Compose y Kubernetes (K8s). El despliegue es automatizado en un servidor remoto, permitiendo un flujo de trabajo eficiente para la integración y entrega continua.
@@ -101,13 +106,16 @@ Marca la opción "Initialize with a README".
 Crea el repositorio.
 
 2. Clonar el Repositorio
+<pre>
 git clone https://github.com/tu_usuario/php-k8s-ci-cd-app.git
 cd php-k8s-ci-cd-app
+</pre>
 3. Estructura Básica del Proyecto
 Crea las carpetas y archivos necesarios para la aplicación y configuración de CI/CD:
-
+<pre>
 mkdir -p public tests .github/workflows k8s
 touch Dockerfile docker-compose.yml .dockerignore .gitignore
+</pre>
 La estructura del proyecto será la siguiente:
 <pre>
 php-k8s-ci-cd-app/
@@ -153,20 +161,22 @@ $mysqli->close();
 </pre>
 5. Crear el Dockerfile
 En el archivo Dockerfile, agrega el siguiente contenido para crear la imagen de Docker:
-
+<pre>
 FROM php:8.2-apache
 COPY public/ /var/www/html/
 EXPOSE 80
+</pre>
 6. Construir y Probar la Imagen Localmente (Opcional)
 Construir la imagen Docker:
-
+<pre>
 docker build -t tu-usuario/php-k8s-app:latest .
 docker push tu-usuario/php-k8s-app:latest
+</pre>
 Probar la imagen localmente:
-
+<pre>
 docker run -p 8080:80 -e DB_HOST=localhost -e DB_USER=root -e DB_PASS= -e DB_NAME=demo tu-usuario/php-k8s-app:latest
 Visita http://localhost:8080 para verificar que la aplicación funcione correctamente.
-
+</pre>
 7. Crear un Registro en Docker Hub
 Regístrate en Docker Hub.
 
@@ -258,9 +268,10 @@ EXPOSE 80
 </pre>
 6. Construir y Probar la Imagen Localmente (Opcional)
 Construir la imagen Docker:
-
+<pre>
 docker build -t tu-usuario/php-k8s-app:latest .
 docker push tu-usuario/php-k8s-app:latest
+</pre>
 Probar la imagen localmente:
 
 docker run -p 8080:80 -e DB_HOST=localhost -e DB_USER=root -e DB_PASS= -e DB_NAME=demo tu-usuario/php-k8s-app:latest
@@ -273,7 +284,7 @@ Crea un nuevo repositorio en Docker Hub para almacenar la imagen de Docker.
 
 8. Configurar GitHub Actions para CI/CD
 Crea el archivo de flujo de trabajo en .github/workflows/deploy.yml con el siguiente contenido:
-
+<pre>
 name: Build and Deploy to Docker Hub
 on:
   push:
@@ -298,6 +309,7 @@ jobs:
         context: .
         push: true
         tags: tu-usuario/php-k8s-app:latest
+</pre>
 9. Crear el Deployment de Kubernetes
 Crea los archivos de configuración de Kubernetes en la carpeta k8s/:
 
